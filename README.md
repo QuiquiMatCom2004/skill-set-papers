@@ -31,13 +31,10 @@ editing, and evaluating papers.
 In scope: CS papers in any venue format (conference, journal, preprint), **including figures
 inside those papers**.
 
-## Harness compatibility
+## Harness integration
 
-| Harness    | Integration                                                    |
-| ---------- | -------------------------------------------------------------- |
-| Claude Code | Native Agent Skills support (`SKILL.md`)                       |
-| OpenCode   | Compatible with the Agent Skills format                        |
-| Codex      | Via integration layer documented in `docs/integrations/`       |
+The skills use portable Agent Skills files. Harness-specific installation and usage guides
+are planned for `docs/integrations/`; compatibility has not yet been tested here.
 
 ## Source material
 
@@ -49,17 +46,20 @@ The book's text is never reproduced, excerpted, or distributed with this project
 All deliverables (skills, rubric, docs) are in **English**. `PROBLEM.md`, the canonical problem
 definition, is kept in Spanish as the user-authored source of truth.
 
-## Repository layout (planned)
+## Repository layout
 
 ```
 PROBLEM.md    # Canonical problem definition (Spanish) — everything derives from it
 AGENTS.md     # Working rules for coding agents in this repo
 README.md     # This file
-docs/         # Official documents (principle synthesis, harness integration guides)
-skills/       # The skill set (one directory per skill, each with SKILL.md)
-rubric/       # Paper-evaluation rubric
+docs/         # Principles, use cases, requirements, evaluation protocol, issue drafts
+skills/       # MVP skills (one directory per skill, each with SKILL.md)
+rubric/       # Communication rubric
 ```
 
 ## Status
 
-Early stage — problem defined, artifacts not yet built. See `PROBLEM.md`.
+MVP draft available on `feat/skill-set-papers-mvp`: principle inventory,
+communication rubric, evaluation protocol, and four writing skills. The evaluation result
+is **PENDING** until a permitted CS-paper corpus, frozen skill versions, and evaluators
+are available. See `docs/evaluation.md` for the pre-run gate.
