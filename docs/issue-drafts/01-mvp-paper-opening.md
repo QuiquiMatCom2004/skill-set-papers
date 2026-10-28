@@ -9,7 +9,7 @@ Create `skills/paper-opening/SKILL.md` in standard Agent Skills format. The skil
 - Require the current contribution block and an outline or existing-paper section map. If the block is absent, route to `paper-contributions`; an idea alone never produces an introduction.
 - Apply the single factual-claim rule to every result, method, background, or contribution statement: author-confirmed ID, resolvable support pointer, and wording no broader than the material supports. A failed claim becomes a visible gap or is omitted, not polished into a finding.
 - Draft the final abstract only from a complete body supporting the contribution. A planning note is not presented as a paper abstract.
-- Apply format and length constraints only from a supplied venue brief; otherwise label format generic. For edits, diagnose first and preserve meaning, claim strength, numbers, figures, citations, and scope.
+- Require a ready brief from `paper-venue`; without one, return a gap and no introduction or abstract. Apply known format and length rules only from that brief. `mode: generic` yields explicitly generic output. For edits, diagnose first and preserve meaning, claim strength, numbers, figures, citations, and scope.
 - Record block version and dependent claim IDs; define use / do-not-use / next-skill routing. Enforce G-/C- gates separately from W-03/W-04 communication quality.
 
 ## Expected files

@@ -1,6 +1,6 @@
 # Use Cases and Writing Start Points for CS Papers
 
-**Status:** planning draft for the four-skill MVP. This document is the source of case selection and permitted work. The single evidence rule, claim register, and submission gate live in `docs/requirements.md`.
+**Status:** planning draft for the five-skill MVP (four writing skills plus `paper-venue` intake). This document is the source of case selection and permitted work. The single evidence rule, claim register, and submission gate live in `docs/requirements.md`.
 
 ## Entry rule
 
@@ -18,7 +18,7 @@ Classify by the supplied document after the entry rule passes. The case selects 
 | **partial-draft** | Existing incomplete draft; supported central claim ID; material pointers; requested change and known gaps. | Diagnose and revise existing text; draft supported missing sections; update block and outline if needed. |
 | **complete-draft** | Full draft; supported central claim ID; material pointers; requested change and known gaps. | Diagnose, edit, restructure, or adapt to a supplied venue; revise abstract and ending; run submission checks. |
 
-A complete draft with no supported central claim still routes to **diagnosis and a gap list only**. Its presence is not permission to polish unsupported science. A venue brief is a separate dimension for all cases. It is optional for generic work or a local edit, and required for venue adaptation or a submission-ready claim. Missing venue rules are left unknown, never invented.
+A complete draft with no supported central claim still routes to **diagnosis and a gap list only**. Its presence is not permission to polish unsupported science. A venue brief is a separate dimension for all cases. It is produced by the intake skill `paper-venue` after the evidence gate and always records an explicit `mode`. Outline, opening, and ending work requires a brief, which may be `mode: generic`; a local edit that does not touch structure, abstract, closing, or venue restrictions does not. Venue adaptation or a submission-ready claim requires `mode: named-venue`. Generic mode is never silent: the author explicitly chooses it via `paper-venue`. Missing venue rules are left unknown, never invented.
 
 ## Material appropriate to the contribution
 
@@ -37,7 +37,7 @@ The minimum is **one central claim that passes the rule**, not a universal exper
 | Artifact | Earliest start | If a required claim fails the rule |
 |---|---|---|
 | Contribution block | At least one supported central claim; author confirms its scope. | `paper-contributions` returns `insufficient-evidence` or a narrower supported claim for author confirmation. |
-| Outline | Current contribution block with claim IDs; venue brief or explicit generic mode. | Show the unsupported section as a gap; do not silently omit it or assert its result. |
+| Outline | Current contribution block with claim IDs; ready venue brief in explicit `named-venue` or `generic` mode. | Show the unsupported section as a gap; do not silently omit it or assert its result. |
 | Introduction | Current block and outline; each factual claim passes the rule. | Remove the unsupported result claim or show a visibly marked gap, not an achieved finding. |
 | Methods, design, results, proof, related work | Material appropriate to each factual claim and a resolvable pointer. | Gap list or marked scaffold for that passage; no factual prose for the failed claim. |
 | Abstract and ending | Complete body that supports the contributions they state. | Defer final versions; identify which body claims remain unresolved. |
@@ -58,6 +58,10 @@ Editing is an operation on `partial-draft` or `complete-draft`, not a separate w
 
 Preserve scientific meaning, claim strength, numbers, citations, figures, and scope. A substantive scientific change is a separate proposal for the author, not a silent rewrite. If a central claim fails the entry rule, the first and only output is a diagnosis of evidence gaps until the author supplies or confirms adequate material.
 
+`local-edit` is an operation performed through general editing instructions
+outside this MVP skill set. `paper-outline` can diagnose where a passage sits
+in a section route, but does not rewrite arbitrary body paragraphs.
+
 ## Routing examples
 
 | # | Input | Expected route and output |
@@ -68,8 +72,8 @@ Preserve scientific meaning, claim strength, numbers, citations, figures, and sc
 | 4 | Verified source corpus and documented gap, no prose | `material-no-draft`; survey or position argument limited to those sources. |
 | 5 | Partial draft with a supported central claim | `partial-draft`; diagnose and revise supported passages. |
 | 6 | Partial draft whose central claim has no support | Gap diagnosis only; no prose embellishment until a narrower claim or material passes. |
-| 7 | Complete draft, request to edit one paragraph | `complete-draft` + `local-edit`; preserve meaning and citations. |
-| 8 | Complete draft, request to adapt to a named venue | `complete-draft` + `venue-adapt`; require a current venue brief before claiming compliance. |
+| 7 | Complete draft, request to edit one paragraph | `complete-draft` + `local-edit` through general editing outside the MVP skills; preserve meaning and citations. |
+| 8 | Complete draft, request to adapt to a named venue | `complete-draft` + `venue-adapt`; `paper-venue` produces the current venue brief before any `venue-adapt` compliance claim. |
 | 9 | Only an idea or question, no supporting material | `insufficient-evidence`; list needed research, no paper prose. |
 | 10 | Only raw data or code, with no bounded central claim they support | `insufficient-evidence`; identify analysis or observation needed. |
 | 11 | Request to invent results, proofs, or citations | No factual draft; provide a gap list or marked scaffold. |

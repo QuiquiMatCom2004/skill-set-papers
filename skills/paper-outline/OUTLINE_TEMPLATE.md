@@ -2,9 +2,15 @@
 
 Block version: v<major>.<minor>
 Claims used: CL-001, CL-002, ...
-Venue: <venue name> | generic (no venue brief supplied)
-Venue rules applied: none (generic) / <list only the rules supplied in the brief>
-Full venue compliance: unknown unless the brief is complete and checked
+Venue brief version: <integer from the ready brief>
+Venue mode: <named-venue | generic>
+Language: <language from the ready brief>
+Venue: <venue name if named-venue | explicitly generic>
+Venue rules applied: <author-confirmed applicable rules if named-venue | none if generic>
+Venue compliance: <status for confirmed applicable rules if named-venue | no claim if generic>
+
+A ready brief from `paper-venue` is required before an outline. If missing or
+selection is pending, return a gap to `paper-venue`; do not use this template.
 
 ## Section route
 
@@ -21,7 +27,9 @@ Outcome / new finding / contribution, stated plainly: <text> [claims: ...]
 
 ## Venue rules applied
 
-Only rules explicitly supplied in the venue brief: <list>. Unknown or missing venue rules: left open, never invented.
+Only author-confirmed applicable rules recorded in the venue brief support a
+compliance claim: <list>. Unknown or unconfirmed rules remain open. With
+`mode: generic`, label the outline generic and make no venue-compliance claim.
 
 ## Visible gaps
 

@@ -30,13 +30,12 @@ Do not use when:
 - The request is to invent results, proofs, or citations → return a gap list, no factual prose.
 - The paper is outside Computer Science → out of scope
 
-**Next skill:** `paper-outline` (arranges the supported contribution into a route; shows unresolved claims as gaps). Do not call any other writing skill before this gate passes.
+**Next skill:** `paper-venue` (intake: records venue requirements before outline/opening/ending).
 
 ## Inputs
 
 - **Research index**: identifies the task and references the supplied material, any existing draft, the claim register, the current contribution block, and missing inputs. It does not copy those artifacts.
 - **Supplied material or draft**: real research material (result tables and protocols, proofs or theorem numbers, artifact paths and observations, verifiable source identifiers) or an existing CS-paper draft.
-- **Venue brief** (optional): venue requirements when known; required only for venue adaptation or a submission-compliance claim. Without it, label output generic and leave constraints open.
 
 ## Claim gate (G- integrity requirement)
 
@@ -51,6 +50,8 @@ Procedure:
 3. **Narrow** any overbroad claim to what the material actually supports, then recheck the same rule. A tested prototype may support "we implemented this architecture" while "it is faster than prior systems" stays blocked until a comparison exists.
 4. **Require author confirmation** of claim class, support status, and intended scope. The agent proposes; the author confirms. The agent never approves its own inference and does not certify scientific correctness.
 5. **Require at least one central claim to pass** before entering writing.
+
+Do not call any other writing skill before this gate passes.
 
 A passing central claim does not authorize other claims: retain unsupported noncentral claims in the register as visible gaps until each separately passes the same rule before factual prose uses it.
 
@@ -96,3 +97,4 @@ Before editing an existing draft (`partial-draft` or `complete-draft`):
 - Does not duplicate the claim register or the venue brief.
 - Does not draft outline, introduction, or paper prose when the gate fails.
 - Does not invent venue requirements; missing venue rules stay unknown.
+- Does not require or consume a venue brief; `paper-venue` is not a prerequisite of this skill.

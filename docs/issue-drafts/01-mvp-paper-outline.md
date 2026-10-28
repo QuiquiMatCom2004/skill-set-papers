@@ -7,7 +7,7 @@ This second MVP skill implements W-01 and W-02. It arranges a supported contribu
 Create `skills/paper-outline/SKILL.md` in standard Agent Skills format. The skill must:
 
 - Require a current versioned contribution block with at least one supported central claim. If absent, route to `paper-contributions`; do not write an outline from idea alone.
-- Produce a generic outline when no venue brief is supplied, explicitly declining venue-compliance claims. When a paper-specific venue brief is supplied, apply only its known constraints.
+- Require a ready venue brief from `paper-venue` with `mode: named-venue` or `mode: generic` before producing an outline. Generic output requires the author's explicit generic choice. A missing brief returns a gap to `paper-venue`.
 - Record the block version and claim IDs used. Show sections dependent on unresolved claims as visible gaps rather than silently dropping them or claiming results.
 - For existing drafts, diagnose first and show an old-to-new section map before prose changes. Preserve scientific meaning, claim strength, numbers, figures, citations, and scope.
 - State when to use, when not to use, and where prose drafting goes next. Enforce G- and applicable C- rules as pass/fail while mapping the communication job to W-01/W-02.
@@ -22,7 +22,7 @@ Create `skills/paper-outline/SKILL.md` in standard Agent Skills format. The skil
 ## Acceptance criteria
 - [ ] Standard Agent Skills frontmatter and lean, portable instructions exist.
 - [ ] No outline is written when the central-claim gate fails; the user receives the material-gap route.
-- [ ] With support but no venue brief, output is explicitly generic. With a brief, only supplied rules are applied.
+- [ ] With support but no ready brief, output is a gap to `paper-venue`; no outline. A generic brief yields an explicitly generic outline. Named-venue rules are applied only where recorded and author-confirmed.
 - [ ] Unresolved claims remain visible as gaps; output records block version and dependent claim IDs.
 - [ ] An existing-paper restructure starts with a section map and preserves scientific meaning.
 - [ ] W-01/W-02 traceability, use / do-not-use / next-skill conditions, and no book excerpts or tool/harness code are verified.

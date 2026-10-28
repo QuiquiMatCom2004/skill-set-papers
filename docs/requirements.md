@@ -14,7 +14,27 @@ If a broad claim fails, narrow it to what the material actually supports and rec
 
 The **research index** identifies the requested task and references the supplied research material, any existing draft, the claim register, the current contribution block, and missing inputs. It does not copy those artifacts. Required fields for each case appear only in `docs/use-cases.md`.
 
-The **venue brief** contains the selected venue's requirements when known: paper type and track, sections or order if prescribed, abstract format and length, page or word limits, citation style, and applicable disclosure rules. It is optional for generic structuring or local editing and required for a claim of venue compliance or adaptation. With no venue brief, label the output generic and leave unknown constraints open.
+The **venue brief** contains the selected venue's requirements when known:
+paper type and track, sections or order if prescribed, abstract format and
+length, page or word limits, citation style, and applicable disclosure rules.
+It is produced by the intake skill `paper-venue` and always records an
+explicit `mode` (`named-venue` or `generic`). `shortlist-requested` is an
+intake outcome while the author chooses a candidate, not a ready brief. A brief
+with an explicit `mode` is required before `paper-outline`, `paper-opening`,
+`paper-ending`, a restructure, a venue adaptation, or submission checks; a
+brief with `mode: generic` is valid for generic work, and its output is
+labeled generic with unknown constraints left open. Generic mode is never
+silent: the author explicitly chooses it via `paper-venue`. A venue-compliance
+or adaptation claim requires `mode: named-venue`; a compliance claim also
+requires confirmation of every applicable rule being checked. Unconfirmed or
+missing venue rules are never invented or treated as passed.
+
+Writing flow order: `paper-contributions` (evidence gate G-) → `paper-venue`
+(intake, records `VENUE_BRIEF.md`) → `paper-outline` → `paper-opening` →
+`paper-ending`. `paper-venue` is not a prerequisite of `paper-contributions`,
+and it is not required for a `local-edit` that does not touch section
+structure, sections, abstract, closing, or venue restrictions; such an edit
+records `venue_brief_version` if a brief exists, or `venue_brief: none`.
 
 ## Claim register and contribution block
 

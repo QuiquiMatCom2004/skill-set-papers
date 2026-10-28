@@ -1,6 +1,8 @@
 # Opening gap list (reference)
 
-Use when the contribution block is missing or stale, no central claim passes the one-claim rule, or a final abstract is requested before its body and required claims are supported. Return this list instead of the blocked introduction or final abstract. A failed noncentral introduction claim may instead be shown as a gap or omitted with the omission recorded as a visible gap while supported introduction prose proceeds.
+Use when the required venue brief is missing or shortlist selection is pending, the contribution block is missing or stale, no central claim passes the one-claim rule, or a final abstract is requested before its body and required claims are supported. Return this list instead of the blocked introduction or final abstract. A failed noncentral introduction claim may instead be shown as a gap or omitted with the omission recorded as a visible gap while supported introduction prose proceeds.
+
+Venue brief gap: <missing ready brief or pending shortlist; route to `paper-venue`; leave claim rows empty if this is the only gap>.
 
 Body/block gap: <name the missing or stale artifact and the exact material needed to complete it>.
 

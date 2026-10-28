@@ -14,9 +14,7 @@ editing, and evaluating papers.
 
 ## Deliverables
 
-1. **Skill set** — one directory per skill, each with a standard-format `SKILL.md`. Skills may
-   orchestrate existing tools where deterministic checks are possible (e.g., clarity linters);
-   no tool code is produced in this project.
+1. **Skill set** — one directory per skill, each with a standard-format `SKILL.md`. The MVP has five skills: `paper-contributions`, `paper-venue` (the intake skill, the sole exception to AGENTS.md rule #6), `paper-outline`, `paper-opening`, and `paper-ending`. Skills may orchestrate existing tools where deterministic checks are possible (e.g., clarity linters); no tool code is produced in this project.
 2. **Evaluation rubric** — a paper-quality rubric built from Winston's principles, used to
    validate the skill set's effect on drafts.
 
@@ -53,13 +51,14 @@ PROBLEM.md    # Canonical problem definition (Spanish) — everything derives fr
 AGENTS.md     # Working rules for coding agents in this repo
 README.md     # This file
 docs/         # Principles, use cases, requirements, evaluation protocol, issue drafts
-skills/       # MVP skills (one directory per skill, each with SKILL.md)
+skills/       # MVP skills (one directory per skill, each with SKILL.md); five skills, with paper-venue as the intake skill per AGENTS.md rule #6
 rubric/       # Communication rubric
 ```
 
 ## Status
 
 MVP draft available on `feat/skill-set-papers-mvp`: principle inventory,
-communication rubric, evaluation protocol, and four writing skills. The evaluation result
-is **PENDING** until a permitted CS-paper corpus, frozen skill versions, and evaluators
-are available. See `docs/evaluation.md` for the pre-run gate.
+communication rubric, evaluation protocol, and five skills including the intake
+skill `paper-venue`. The evaluation result is **PENDING** until a permitted CS-paper
+corpus, frozen skill versions, and evaluators are available. See `docs/evaluation.md`
+for the pre-run gate.

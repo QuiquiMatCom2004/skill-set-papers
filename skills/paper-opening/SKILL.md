@@ -23,6 +23,7 @@ Use when:
 - A current, versioned contribution block exists (emitted by `paper-contributions`) and it references supported claim IDs.
 - A current outline or existing-paper section map exists (emitted by `paper-outline` or derived from a complete draft).
 - The request is to write or revise the introduction, or to write the final abstract after a complete supported body.
+- A current venue brief from `paper-venue` with `mode: named-venue` or `mode: generic` is required; without it return a gap to `paper-venue` and emit no introduction or abstract. Write in the brief's `language`; produce a second abstract when its `secondary_abstract_language` is set. `paper-venue` owns the mode/language question.
 
 Permitted entry cases (docs/use-cases.md), each only after the claim gate passes:
 
@@ -38,7 +39,7 @@ Do not use when:
 - The abstract is requested but the body is incomplete → defer the final abstract and identify which body claims remain unresolved. A planning note or outline is not a paper abstract.
 - The request is to invent results, proofs, or citations → return a gap list or visibly marked scaffold, no factual prose.
 - The paper is outside Computer Science → out of scope.
-- A venue-compliance claim is requested but no current venue brief is supplied → decline the compliance claim; label output generic; leave unknown venue constraints open, never invented.
+- A venue-compliance claim is requested but the current brief is not `mode: named-venue` → decline the compliance claim; leave unknown venue constraints open. A missing brief blocks this skill; a generic brief permits only explicitly generic output.
 
 **Next skill:** `paper-ending` (writes the closing that states supported contributions, W-05). `paper-opening` does not write body prose, methods, results, proofs, related work, or the closing.
 
@@ -48,17 +49,23 @@ Do not use when:
 - **Current versioned contribution block**: Vision / Steps / News / Contributions referencing supported claim IDs, plus the block version.
 - **Outline or existing-paper section map**: major sections in reasoned order with dependent claim IDs; or the section map of an existing draft being edited.
 - **Existing draft** (for edits): current draft plus the requested change.
-- **Venue brief** (optional): the selected venue's requirements when known (paper type/track, prescribed sections or order, abstract format and length, page or word limits, citation style, applicable disclosure rules). Required only for venue adaptation or a submission-compliance claim. Without it, label output generic and leave unknown constraints open.
+- **Venue brief** (required, from `paper-venue`): the selected venue's known requirements, with `mode: named-venue` or `mode: generic`. Record `venue_brief_version` and `language` as dependencies for both outputs.
 
 ## Entry gate — G- integrity requirement (enforced separately from W-03/W-04 quality)
 
 Apply before any introduction prose or final abstract is produced:
+
+0. Verify a current venue brief from `paper-venue` exists with `mode: named-venue` or `mode: generic`. If missing or still awaiting a shortlist choice, return a gap to `paper-venue` and emit no introduction or abstract. This skill does not ask the mode/language question.
 
 1. Verify the contribution block is current, versioned, and references supported claim IDs. If the block is absent → route to `paper-contributions`.
 2. Confirm at least one central claim is `supported` and passes the one-claim rule: an author-confirmed claim ID, a resolvable pointer to real supporting material, and wording no broader than that material demonstrates or argues.
 3. Apply the one-claim rule again to **every** factual claim the introduction or abstract will state — result, method, background, or contribution. Each needs an author-confirmed ID, a resolvable real support pointer, and scope no broader than the support.
 4. A failed noncentral claim may be omitted **only with the omission recorded as a visible gap**; it is never polished into an achieved finding. If no central claim passes even after narrowing, return `insufficient-evidence` and emit no paper prose. If a required abstract claim fails, defer the final abstract until that claim is supported or the author confirms a narrower supported scope.
 5. The agent proposes claim IDs, wording, and scope; the author confirms class, support status, and intended scope. The agent never approves its own inference and does not certify scientific correctness.
+
+### Venue brief re-verification (introduction and abstract)
+
+If the recorded `venue_brief_version` for the introduction/abstract is lower than the current `VENUE_BRIEF.md` version, list the changed fields, mark the affected introduction or abstract elements, do not rewrite until the author confirms, then record the new version. If no changed field affects the introduction or abstract, record the new version and say so.
 
 ## Output: introduction (W-03)
 
@@ -68,11 +75,11 @@ Draft the introduction from the current block and outline/section map only:
 - State the contribution, outcome, and new finding explicitly and early, consistent with the block's Vision / Steps / News / Contributions.
 - Tie every factual statement to a passing claim ID; wording no broader than the supporting material.
 - Show any section or claim that is not `supported` as a visible gap; never silently omit it or assert its result.
-- **Recorded dependencies**: record the contribution-block **version** and every **dependent claim ID** the introduction uses. Every output citing these IDs depends on this version.
+- **Recorded dependencies**: record the contribution-block **version**, `venue_brief_version`, `language`, and every **dependent claim ID** the introduction uses. Every output citing these IDs depends on this version.
 
 Heading, format, and length:
 
-- Apply format and length constraints **only** from a supplied venue brief. Without a venue brief, label the introduction **generic** and make no venue-compliance claim; missing venue rules stay unknown, never invented.
+- Apply known format and length constraints from the required brief. With `mode: generic`, label the introduction **generic** and make no venue-compliance claim. A compliance claim requires `mode: named-venue` and author-confirmed applicable rules; missing rules stay unknown.
 
 ## Output: final abstract (W-04)
 
@@ -81,8 +88,8 @@ Draft the final abstract **only after a complete body that supports the contribu
 - Compress the completed work: problem, route, new finding, contribution, with concrete details the body supports.
 - A planning note, an outline, or an incomplete body is **not** a final abstract; do not present one as such.
 - Tie every factual statement to a passing claim ID; do not increase claim strength beyond what the body supports.
-- **Recorded dependencies**: record the contribution-block **version** and every **dependent claim ID** the abstract uses.
-- Apply abstract format and length only from a supplied venue brief; otherwise label generic, no compliance claim.
+- **Recorded dependencies**: record the contribution-block **version**, `venue_brief_version`, `language`, and every **dependent claim ID** the abstract uses.
+- Apply known abstract format and length from the required brief. With `mode: generic`, label the abstract **generic** and make no venue-compliance claim. A compliance claim requires `mode: named-venue` and author-confirmed applicable rules.
 
 ## Before editing existing introduction or abstract text
 
@@ -108,4 +115,4 @@ Diagnose the requested change first:
 - W-03: opening orients to problem, approach, and route so a reader can decide to continue.
 - W-04: final abstract compressed from the completed supported body.
 - G-: one-claim evidence gate, no invented results/citations, preservation of scientific meaning (pass/fail, outside the communication rubric).
-- C-: venue brief applied only when supplied; compliance pass/fail, not a rubric score.
+- C-: the required brief governs venue constraints; a compliance claim requires `mode: named-venue` and author-confirmed applicable rules. Compliance is pass/fail, not a rubric score.

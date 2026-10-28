@@ -31,9 +31,15 @@ update `PROBLEM.md` first and propagate the change outward.
    `description`), then instructions. Keep the `SKILL.md` body lean; move extended material
    into additional files in the same skill directory (progressive disclosure). Skill content
    stays harness-agnostic; harness-specific setup lives in `docs/integrations/`.
-6. **Traceability.** Every skill and every rubric criterion must map to at least one
-   Winston-derived principle. If you cannot name the principle it implements, it does not
-   belong in this repo.
+6. **Traceability.** Every skill and every rubric criterion must map to at least
+   one Winston-derived principle (W-). Sole exception: `paper-venue`, the only
+   intake skill, maps to the C- venue-requirements category. An intake skill (a)
+   has the single job of recording external venue requirements and facts with
+   source, access date and status, (b) writes no paper prose and no communication
+   guidance, and (c) contributes no rubric criterion or score. Intake skills are
+   listed in `docs/principles.md` (C- section); adding another requires amending
+   this rule first. If you cannot name the W- principle, or for a listed intake
+   skill its C- category, it does not belong in this repo.
 
 ## Repository layout
 

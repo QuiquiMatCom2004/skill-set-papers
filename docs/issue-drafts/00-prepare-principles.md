@@ -19,7 +19,7 @@ Create `docs/principles.md` containing:
 ## Acceptance criteria
 - [ ] `docs/principles.md` exists in English.
 - [ ] Each principle has stable ID, original-language synthesis (no quoted book text), source chapter(s).
-- [ ] Traceability matrix covers all four MVP skills and later figures/terminology/review candidates.
+- [ ] Traceability matrix covers the four writing skills, the C- intake exception for `paper-venue`, and later figures/terminology/review candidates.
 - [ ] No quoted/excerpted book text in the file.
 - [ ] Each chapter reference checked against the private reference; unsupported proposals removed/revised.
 

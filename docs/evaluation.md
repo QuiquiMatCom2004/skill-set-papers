@@ -6,17 +6,17 @@ Planning draft. Original synthesis only. This document contains no book text, no
 
 ## 1. Purpose
 
-This protocol executes a fair, controlled comparison of the same coding-assistant model on matched Computer Science paper tasks, once with the project's four skills enabled (treatment arm) and once without them (control arm). It measures whether the skills improve *communication quality* as scored by rubric v0, while keeping research-integrity and venue-compliance gates separate from communication scores.
+This protocol executes a fair, controlled comparison of the same coding-assistant model on matched Computer Science paper tasks, once with the project's four writing skills enabled (`paper-outline`, `paper-opening`, `paper-ending`, plus `paper-contributions`) (treatment arm) and once without them (control arm). It measures whether the skills improve *communication quality* as scored by rubric v0, while keeping research-integrity and venue-compliance gates separate from communication scores. `paper-venue` runs before the comparison and is outside it.
 
 Scope: CS papers only — empirical, theoretical, systems/design, survey/review, and position/vision — in any venue format (conference, journal, preprint), including figures inside those papers. Out of scope: books, presentations, and papers from other disciplines, per `PROBLEM.md` and `AGENTS.md`.
 
-The four skills compared are `paper-contributions`, `paper-outline`, `paper-opening`, and `paper-ending` (treatment). The control arm uses the same model with none of them enabled. Skill names appear here only as arm labels; no skill text is reproduced.
+The four skills compared are `paper-contributions`, `paper-outline`, `paper-opening`, and `paper-ending` (treatment). `paper-venue` is executed before the comparison and is outside it; the same brief is used for both arms. The control arm uses the same model with none of them enabled. Skill names appear here only as arm labels; no skill text is reproduced.
 
 ## 2. Arms and matched conditions
 
 Both arms are identical except for skill enablement:
 
-- **Treatment arm:** the model performs the requested writing/edit operation with the four skills enabled.
+- **Treatment arm:** the model performs the requested writing/edit operation with the four writing skills enabled.
 - **Control arm:** the same model performs the same requested operation on the same input with no skills enabled.
 
 Matched conditions (held constant across arms for each draft):
@@ -24,10 +24,10 @@ Matched conditions (held constant across arms for each draft):
 1. Same model name/version and fixed sampling parameters (temperature, top_p, seed where supported).
 2. Same input draft (or no draft, per case) and same requested edit operation (`local-edit`, `restructure`, `venue-adapt`, or draft formulation for `material-no-draft`).
 3. Identical **author-confirmed claim inventory** and identical **evidence packet** supplied to both arms. The inventory lists each claim ID, claim class (empirical/theoretical/design/literature-based/position), support status (`planned`/`partially_supported`/`supported`), resolvable material pointer or explicit gap, and permitted scope. The evidence packet contains the referenced supporting material. Both are versioned and frozen before scoring. The no-skills baseline is therefore *not* penalized for missing internal skill metadata: it receives the same claim IDs, pointers, and material as the treatment arm.
-4. Same venue brief when supplied (optional for generic work; required for a venue-compliance or submission-ready claim), with source and access date recorded.
+4. Same ready venue brief (produced by `paper-venue`, with explicit `named-venue` or `generic` mode and source/access dates) supplied to both arms for outline, opening, ending, restructure, venue adaptation, or submission tasks. Only a narrow `local-edit` outside those operations may have no brief; record `venue_brief: none` for both arms.
 5. Same prompt template structure; the only difference is the skill enablement flag. No skill-specific hints, examples, or internal metadata leak into the control prompt.
 
-Per-draft records for both arms capture: model, skill versions (treatment) or "none" (control), venue brief if supplied, case, requested edit operation, claim-inventory version, evidence-packet version, normalized rubric score, G- gate result, C- venue result, and cost per arm.
+Per-draft records for both arms capture: model, skill versions (treatment) or "none" (control), ready venue brief or `venue_brief: none` for an eligible `local-edit`, case, requested edit operation, claim-inventory version, evidence-packet version, normalized rubric score, G- gate result, C- venue result, and cost per arm.
 
 ## 3. Corpus sourcing, permissions, and contamination avoidance
 
@@ -133,7 +133,7 @@ The following are fixed and recorded before any treatment output is scored. Chan
 3. **Model:** name/version and fixed sampling parameters, identical across arms.
 4. **Skill versions:** treatment arm skill versions recorded; control arm recorded as "none".
 5. **Prompt template:** identical structure across arms; only the skill enablement flag differs; requested edit operation recorded per draft.
-6. **Venue brief:** if supplied, recorded with source and access date; otherwise output is labeled generic and venue compliance is UNKNOWN.
+6. **Venue brief:** freeze the same ready brief with explicit `named-venue` or `generic` mode and field provenance for both arms. Only an eligible narrow `local-edit` may record `venue_brief: none` for both arms. Generic mode makes no venue-compliance claim; a pending shortlist is not a ready brief.
 7. **Rubric version and scoring procedure:** rubric v0, 0/1/2 anchors, normalization rule, N/A handling.
 8. **Evaluators and blinding:** who scores, how many, whether blinded, and the blinding procedure (section 8).
 9. **Decision rule:** metric, practically meaningful threshold Δ* justified before confirmatory treatment scoring, α level if a significance test is used, analysis method, and inconclusive handling (section 10).
@@ -141,7 +141,7 @@ The following are fixed and recorded before any treatment output is scored. Chan
 
 ## 7. Prompt controls
 
-- The treatment and control prompts share one template; the only controlled difference is whether the four skills are active.
+- The treatment and control prompts share one template; the only controlled difference is whether the four writing skills are active.
 - The requested edit operation (`local-edit`, `restructure`, `venue-adapt`, or draft formulation) is the same for both arms on a given draft.
 - No skill-specific instructions, internal skill metadata, claim IDs from the skill's internal register (beyond the shared claim inventory), or tool names are injected into the control prompt.
 - The control arm's output is generated by the same model under the same sampling parameters as the treatment arm.
@@ -207,7 +207,7 @@ The result remains PENDING until the gate passes. Do not falsely claim validatio
 - Paired comparison on matched complete drafts: report mean normalized score per arm, mean difference in percentage points, and uncertainty appropriate to the pre-registered sample size. Use a one-sided paired significance test only if its method, assumptions, and α were frozen before confirmatory scoring; otherwise report a descriptive paired analysis without a significance claim.
 - Disaggregate by case (`material-no-draft`, `partial-draft`, `complete-draft`) and by paper type (empirical/theoretical/systems/survey/position) so effects are not hidden by aggregation.
 - Report negative-route results separately for both arms. Treatment production of factual prose from unsupported input is a gate failure; control behavior is a comparison result.
-- Report G- gate results (PASS/FAIL) and C- venue results (PASS/FAIL/UNKNOWN) per arm and per draft, separate from communication scores.
+- Report G- gate results (PASS/FAIL) and C- venue results (PASS/FAIL/UNKNOWN) per arm and per draft, separate from communication scores. `paper-venue` runs before the comparison and is outside it; the same brief feeds both arms.
 - Report cost per arm and per draft.
 
 ### 10.5 Decision and inconclusive results
@@ -242,7 +242,7 @@ A full run record is archived per protocol run and includes everything in sectio
 The following blockers prevent executing this protocol now:
 
 1. **No corpus exists.** No scored or scoreable CS-paper corpus with confirmed author permissions is present in the repository. The corpus pre-run gate (section 10.3) is unsatisfied; the result is PENDING. A corpus must be selected, permissions confirmed, and Δ* justified from it before scoring.
-2. **No frozen skill versions.** The four skills are implementation drafts in this branch; their content must be reviewed and versioned before a treatment run can be reproduced.
+2. **No frozen skill versions.** The five skills (including intake skill `paper-venue`) are implementation drafts in this branch; their content must be reviewed and versioned, `paper-venue` among them, before a treatment run can be reproduced.
 3. **No evaluators appointed.** No independent evaluator(s) are named, and blinding feasibility is unassessed.
 4. **No baseline/variance data.** Without a scored corpus there is no baseline variability from which to derive Δ* or a per-case sample size.
 

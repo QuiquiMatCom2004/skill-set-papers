@@ -36,7 +36,7 @@ Each skill and each rubric criterion maps to at least one Winston-derived princi
 | W-07 | Specific criticism finds communication failures | — (no v0.1 skill; review reserved for v0.3) | — (review-process principle; do not score as a paper property) | `paper-review` (v0.3) |
 | W-08 | Stable, recognizable signals for important ideas | — (terminology reserved for v0.2) | Signal strength: salient ideas and surface clues let a reader extract the essence quickly | `paper-terminology` (v0.2) |
 
-Coverage: all four MVP skills (`paper-contributions`, `paper-outline`, `paper-opening`, `paper-ending`) are traced to at least one W- principle. Later candidates — `paper-figures` (figures), `paper-terminology` (terminology), and `paper-review` (review) from `docs/skill-proposal.md` — are traced so their W- anchors exist before those skills are written.
+Coverage: all four writing skills (`paper-contributions`, `paper-outline`, `paper-opening`, `paper-ending`) are traced to at least one W- principle. The intake skill `paper-venue` is traced to the C- venue-requirements category under the `AGENTS.md` rule #6 exception (see the C- section below). Later candidates — `paper-figures` (figures), `paper-terminology` (terminology), and `paper-review` (review) from `docs/skill-proposal.md` — are traced so their W- anchors exist before those skills are written.
 
 ## G- integrity gates (distinct from W- principles)
 
@@ -51,6 +51,8 @@ A `G-` gate failure blocks the paper regardless of rubric score.
 ## C- venue requirements (distinct from W- principles)
 
 `C-` items are current external venue requirements, recorded with source and access date. They are compliance pass/fail, not scored as rubric criteria unless a distinct communication criterion has a genuine `W-` anchor. Examples (illustrative only, checked 2026-10-27): the NeurIPS paper checklist and the CHI 2026 author guide. Recheck the chosen venue's current requirements before submission; missing venue rules are left unknown, never invented.
+
+- `paper-venue`: intake skill. Single job — records external venue requirements and facts with source, access date, and status (`VENUE_BRIEF.md`). Maps to C- venue-requirements category (pass/fail compliance, not a rubric score). Writes no paper prose, gives no communication guidance, contributes no rubric criterion. The only intake skill permitted under `AGENTS.md` rule #6.
 
 A `C-` compliance failure blocks a venue-specific submission claim but does not change rubric scores.
 
