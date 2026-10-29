@@ -1,64 +1,64 @@
 # Skill Set Papers
 
-A portable set of agent skills and a paper-evaluation rubric, derived from the communication
-methodology of Patrick Henry Winston's *Make It Clear*, that help coding agents write, edit,
-and evaluate Computer Science papers.
+A portable set of Agent Skills for communicating Computer Science research clearly. The
+skills and [communication rubric](rubric/v0.md) are an original synthesis of principles
+from Patrick Henry Winston's *Make It Clear*. They help agents structure and revise papers
+while keeping research evidence and venue rules separate from writing quality.
 
-## The problem
+## Available skills
 
-Coding agents increasingly assist with scientific paper writing, but they do it without a
-communication methodology: the result is often technically correct text that is poorly
-structured and unclear. No portable skill set encodes established scientific-communication
-principles so that any harness (Claude Code, OpenCode, Codex) can apply them when writing,
-editing, and evaluating papers.
+| Skill | Job | Main output |
+|---|---|---|
+| [paper-contributions](skills/paper-contributions/SKILL.md) | Check the central claim against supplied material and state the contribution. | Claim register and versioned Vision / Steps / News / Contributions block, or an exact evidence-gap list. |
+| [paper-venue](skills/paper-venue/SKILL.md) | Record requirements for a named venue or an explicitly chosen generic mode. This is an intake skill; it writes no paper prose. | Versioned `VENUE_BRIEF.md` with sources and unknown fields. |
+| [paper-outline](skills/paper-outline/SKILL.md) | Arrange supported claims into a reasoned section route. | Outline with claim dependencies and visible gaps. |
+| [paper-opening](skills/paper-opening/SKILL.md) | Write or revise the introduction; write the final abstract only after the body supports it. | Introduction and, when ready, abstract. |
+| [paper-ending](skills/paper-ending/SKILL.md) | Close a complete paper by stating its supported contributions. | Contribution-centered ending or an exact closing-gap list. |
 
-## Deliverables
+Each skill is a portable `SKILL.md` with YAML frontmatter. The repository contains no tool
+or harness implementation. Harness-specific integration guides are planned; compatibility
+with Claude Code, OpenCode, and Codex has not been formally tested.
 
-1. **Skill set** — one directory per skill, each with a standard-format `SKILL.md`. The MVP has five skills: `paper-contributions`, `paper-venue` (the intake skill, the sole exception to AGENTS.md rule #6), `paper-outline`, `paper-opening`, and `paper-ending`. Skills may orchestrate existing tools where deterministic checks are possible (e.g., clarity linters); no tool code is produced in this project.
-2. **Evaluation rubric** — a paper-quality rubric built from Winston's principles, used to
-   validate the skill set's effect on drafts.
+## How to use the set
 
-## Out of scope
+1. Supply a CS research artifact or existing draft, its provenance, and the desired paper
+   task. An idea alone, raw data alone, or code alone cannot establish a result. See the
+   [three writing cases](docs/use-cases.md) and [shared requirements](docs/requirements.md).
+2. Run `paper-contributions`. The agent proposes claim IDs and pointers to supporting
+   material; the author confirms the claim class, support, and intended scope. At least one
+   central claim must pass this gate before paper prose is written. If none does, the output
+   is `insufficient-evidence` with the precise material needed.
+3. Choose a named venue or explicitly choose generic work, and declare the paper language.
+   Run `paper-venue` to record the brief. A named venue's current rules need sources and
+   author confirmation; generic output makes no venue-compliance claim.
+4. Run `paper-outline`, then `paper-opening`. Draft or revise body sections only from
+   material that supports their factual claims. Once the body is complete and supported,
+   finish the abstract and run `paper-ending`.
+5. Apply the [submission checks](docs/requirements.md#submission-ready-gate) and score
+   communication with [rubric v0](rubric/v0.md). Research-integrity gates (`G-`) and venue
+   compliance (`C-`) are pass/fail checks outside the communication score.
 
-- Tool implementations (assumed to already exist; skills only reference and orchestrate them).
-- Harness implementations (Claude Code, OpenCode, Codex assumed to exist; this project ships
-  integration documentation only).
-- Books and presentations.
-- Papers outside Computer Science, even if they use computational methods.
+For an existing paper, diagnose the requested change first and preserve its scientific
+meaning, numbers, figures, citations, and claim strength. The current set has no dedicated
+technical-body drafting or paragraph-editing skill; general editing outside this MVP handles
+that work under the same evidence and preservation rules.
 
-In scope: CS papers in any venue format (conference, journal, preprint), **including figures
-inside those papers**.
+## Project status
 
-## Harness integration
+The five-skill MVP, [principle inventory](docs/principles.md),
+[use cases](docs/use-cases.md), [requirements](docs/requirements.md), rubric, and
+[evaluation protocol](docs/evaluation.md) are available. The controlled evaluation result
+is **pending**: a permitted CS-paper corpus, frozen skill versions, and evaluators are
+still needed. A polished draft is not automatically scientifically validated or ready to
+submit.
 
-The skills use portable Agent Skills files. Harness-specific installation and usage guides
-are planned for `docs/integrations/`; compatibility has not yet been tested here.
+## Scope and source material
 
-## Source material
+This project covers CS papers in journal, conference, and preprint formats, including
+figures within papers. Books, presentations, and papers outside CS are out of scope. All
+skills, rubric, and official docs are in English; [PROBLEM.md](PROBLEM.md) is the canonical
+user-authored problem statement in Spanish.
 
-All skills and the rubric are an **original synthesis** of the principles in *Make It Clear*.
-The book's text is never reproduced, excerpted, or distributed with this project.
-
-## Language
-
-All deliverables (skills, rubric, docs) are in **English**. `PROBLEM.md`, the canonical problem
-definition, is kept in Spanish as the user-authored source of truth.
-
-## Repository layout
-
-```
-PROBLEM.md    # Canonical problem definition (Spanish) — everything derives from it
-AGENTS.md     # Working rules for coding agents in this repo
-README.md     # This file
-docs/         # Principles, use cases, requirements, evaluation protocol, issue drafts
-skills/       # MVP skills (one directory per skill, each with SKILL.md); five skills, with paper-venue as the intake skill per AGENTS.md rule #6
-rubric/       # Communication rubric
-```
-
-## Status
-
-MVP draft available on `feat/skill-set-papers-mvp`: principle inventory,
-communication rubric, evaluation protocol, and five skills including the intake
-skill `paper-venue`. The evaluation result is **PENDING** until a permitted CS-paper
-corpus, frozen skill versions, and evaluators are available. See `docs/evaluation.md`
-for the pre-run gate.
+The private book PDF and text file at the repository root are reference material only.
+They are ignored by Git and must never be quoted, copied, or published with this project.
+See [AGENTS.md](AGENTS.md) for repository rules.
